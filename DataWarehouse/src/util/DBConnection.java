@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 public class DBConnection {
 	static Connection con;
+	//Connection
 
 	public static Connection getConnection(String database) throws ClassNotFoundException, SQLException {
 		String url = "jdbc:mysql://localhost:3306/" + database;
