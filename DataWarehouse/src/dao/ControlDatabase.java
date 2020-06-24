@@ -9,16 +9,16 @@ import util.DBConnection;
 
 public class ControlDatabase {
 	private String config_db_name;
-	private String target_db_name;
+	private String target_url;
 	private String table_name;
 	private PreparedStatement pst = null;
 	private ResultSet rs = null;
 	private String sql;
 
-	public ControlDatabase(String db_name, String table_name, String target_db_name) {
+	public ControlDatabase(String db_name, String table_name, String target_url) {
 		this.config_db_name = db_name;
 		this.table_name = table_name;
-		this.target_db_name = target_db_name;
+		this.target_url = target_url;
 	}
 
 	public ControlDatabase() {
@@ -32,12 +32,12 @@ public class ControlDatabase {
 		this.config_db_name = config_db_name;
 	}
 
-	public String getTarget_db_name() {
-		return target_db_name;
+	public String gettarget_url() {
+		return target_url;
 	}
 
-	public void setTarget_db_name(String target_db_name) {
-		this.target_db_name = target_db_name;
+	public void settarget_url(String target_url) {
+		this.target_url = target_url;
 	}
 
 	public String getTable_name() {
@@ -74,7 +74,7 @@ public class ControlDatabase {
 	
 	public boolean tableExist(String table_name) throws ClassNotFoundException {
 		try {
-			DatabaseMetaData dbm = DBConnection.getConnection(this.target_db_name).getMetaData();
+			DatabaseMetaData dbm = DBConnection.getConnection(this.target_url).getMetaData();
 			ResultSet tables = dbm.getTables(null, null, table_name, null);
 			try {
 				if (tables.next()) {
@@ -96,7 +96,7 @@ public class ControlDatabase {
 		sql = "INSERT INTO " + target_table + "(" + column_list + ") VALUES " + values;
 		System.out.println(sql);
 		try {
-			pst = DBConnection.getConnection(this.target_db_name).prepareStatement(sql);
+			pst = DBConnection.getConnection(this.target_url).prepareStatement(sql);
 			pst.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -154,7 +154,7 @@ public class ControlDatabase {
 		sql = sql.substring(0,sql.length()-1)+")";
 		System.out.println(sql);
 		try {
-			pst = DBConnection.getConnection(this.target_db_name).prepareStatement(sql);
+			pst = DBConnection.getConnection(this.target_url, this.target_user, this.target_pass).prepareStatement(sql);
 			pst.executeUpdate();
 			return true;
 		} catch (SQLException e) {

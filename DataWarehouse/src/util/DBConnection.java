@@ -7,13 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DBConnection {
-	static Connection con;
-	//Connection
+	
+	//Connection control database
 
-	public static Connection getConnection(String database) throws ClassNotFoundException, SQLException {
-		String url = "jdbc:mysql://localhost:3306/" + database;
-		String user = "root";
-		String password = "";
+	public static Connection getControlConnection(String url, String user, String password) throws ClassNotFoundException, SQLException {
+		Connection con;
 		if (con == null || con.isClosed()) {
 			Class.forName("com.mysql.jdbc.Driver");
 			con = DriverManager.getConnection(url, user, password);
@@ -22,4 +20,5 @@ public class DBConnection {
 			return con;
 		}
 	}
+	
 }
