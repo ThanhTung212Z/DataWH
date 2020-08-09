@@ -187,17 +187,13 @@ public class LogUtils {
 		}
 		return false;
 	}
-	public static void main(String[] args) {
-		try {
-			getConfigAutoRun();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		Long millis = System.currentTimeMillis();
+//		timestamp thư viện của sql
+		Timestamp currentTS = new Timestamp(millis);
+		updateStateForAFile(1, "EXS",currentTS , 15, "17130044_sang_nhom8.txt");
 	}
+
 	
 
 	
